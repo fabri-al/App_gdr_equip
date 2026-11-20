@@ -1,0 +1,147 @@
+/* Reset pagina */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+#title {
+
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.table {
+
+   table-layout: fixed;
+    border-collapse: separate;
+border-spacing: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: center; 
+       width: 80%;
+      margin: 25px auto;
+    
+}
+
+.table input {
+    width: 100%;
+    min-width: 0;
+    padding: 5px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    color: black;
+}
+
+/* Angoli superiori arrotondati */
+.table thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.table thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+/* Angoli inferiori arrotondati */
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.table th {
+
+    padding: 25px 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    position: relative;
+     overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+/* Linea verticale indipendente */
+table th:not(:last-child)::after{
+
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    border-right: 2px solid rgb(255, 255, 255);
+
+}
+
+.table td {
+ overflow-wrap: anywhere;
+        padding: 14px 20px;
+    border-top: 2px solid rgb(130, 57, 4);
+    border-right: 2px solid rgb(130, 57, 4);
+}
+
+.table tbody tr:nth-child(odd) td {
+    background-color: rgb(222, 137, 76);
+}
+
+.table tbody tr:nth-child(even) td {
+    background-color: rgb(210, 112, 42);
+}
+
+.table thead th {
+    background-color: rgb(133, 58, 4);
+    color: rgb(255, 255, 255);
+}
+
+#Tipo {
+    width: 8%;
+}
+
+
+#Quantità {
+    width: 11%;
+}
+
+#Nome {
+    width: 18%;
+}
+
+#Descrizione {
+ width: 32%;
+}
+
+#Note{
+width: 9%;
+}
+
+#Peso {
+width: 8%;
+
+}
+
+/* Toglie la linea verticale dopo l'ultima colonna */
+.table th:last-child, .table td:last-child {
+    border-right: none;
+}
+
+#vuoto {
+
+    width: 6%;
+}
+
+/* Bottone aggiungi riga */
+#aggiungi-riga {
+
+    height: 25px;
+    width: 30px;
+    padding: 10px;
+}
