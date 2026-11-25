@@ -1,6 +1,7 @@
 const pulsante = document.getElementById("aggiungi-riga");
 const corpoTabella = document.querySelector("tbody");
 
+// Categorie del menu "Tipo": per aggiungerne una, scriverla qui
 const tipi = ["arma", "armatura", "pozione"];
 
 // Nome con cui i dati vengono salvati nel browser
@@ -9,6 +10,7 @@ const CHIAVE = "equipaggiamento";
 function creaSelect() {
     const select = document.createElement("select");
 
+    // L'opzione vuota fa partire ogni riga senza categoria scelta
     const vuota = document.createElement("option");
     vuota.value = "";
     select.appendChild(vuota);
@@ -35,6 +37,7 @@ function creaCella(elemento) {
     return cella;
 }
 
+// Crea una riga con i 6 campi (tipo, quantità, nome, descrizione, note, peso)
 function creaRiga() {
     const riga = document.createElement("tr");
     riga.appendChild(creaCella(creaSelect()));
@@ -44,6 +47,7 @@ function creaRiga() {
     quantita.value = 1;
     riga.appendChild(creaCella(quantita));
 
+    // Nome, descrizione e note: tre campi di testo
     for (let i = 0; i < 3; i++) {
         riga.appendChild(creaCella(creaInput("text")));
     }
@@ -57,15 +61,23 @@ function creaRiga() {
     return riga;
 }
 
-// Aggiunge una riga con il bottone e la restituisce
+// Aggiunge una riga con i bottoni - e + e la restituisce.
+// Il - è nuovo in ogni riga; il + è un solo elemento e, aggiungendolo
+// alla nuova riga, si sposta lì (un elemento può stare in un solo posto)
 function aggiungiRiga() {
     const nuovaRiga = creaRiga();
+    const elimina = document.createElement("button");
+
+    elimina.textContent = "-";
+    elimina.className = "elimina";
 
     const cellaBottone = document.createElement("td");
+
+    cellaBottone.appendChild(elimina);
     cellaBottone.appendChild(pulsante);
     nuovaRiga.appendChild(cellaBottone);
-
     corpoTabella.appendChild(nuovaRiga);
+
     return nuovaRiga;
 }
 
@@ -77,7 +89,7 @@ function salva() {
     corpoTabella.querySelectorAll("tr").forEach(riga => {
         const valori = [];
 
-        // il bottone non è né select né input quindi viene saltato
+        // i bottoni non sono né select né input, quindi vengono saltati
         riga.querySelectorAll("select, input").forEach(campo => {
             valori.push(campo.value);
         });
@@ -94,6 +106,7 @@ function ripristina() {
     try {
         dati = JSON.parse(localStorage.getItem(CHIAVE)) || [];
     } catch (errore) {
+        // se il testo salvato è corrotto si riparte da una tabella vuota
         dati = [];
     }
 
@@ -114,14 +127,35 @@ function ripristina() {
     });
 }
 
-// Il bottone aggiunge una nuova riga e salva
+
+// Un solo listener sul tbody (copre anche le righe create dopo):
+// se si clicca il - si elimina la riga di quel bottone
+corpoTabella.addEventListener("click", evento => {
+    const elimina = evento.target.closest(".elimina");
+    if (!elimina) return; // clic su altro: non fare nulla
+
+    elimina.closest("tr").remove();
+
+    // Il + sta nell'ultima riga: se è stata eliminata va rimesso
+    const ultimaRiga = corpoTabella.lastElementChild;
+    if (ultimaRiga) {
+        ultimaRiga.lastElementChild.appendChild(pulsante);
+    } else {
+        // Non è rimasta nessuna riga: ne crea una vuota
+        aggiungiRiga();
+    }
+
+    salva();
+});
+
+// Il + aggiunge una riga e salva
 pulsante.addEventListener("click", () => {
     aggiungiRiga();
     salva();
 });
 
-// Salva ogni volta che si modifica un campo
+// Un solo listener sul tbody: salva ogni volta che si modifica un campo
 corpoTabella.addEventListener("input", salva);
 
-// Quando si apre la pagina
+// All'apertura ricostruisce la tabella dai dati salvati
 ripristina();

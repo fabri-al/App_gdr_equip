@@ -27,7 +27,7 @@ border-spacing: 0;
     
 }
 
-.table input {
+.table input  {
     width: 100%;
     min-width: 0;
     padding: 5px;
@@ -84,19 +84,26 @@ table th:not(:last-child)::after{
 
 .table td {
  overflow-wrap: anywhere;
-        padding: 14px 20px;
+        padding: 14px 4px;
     border-top: 2px solid rgb(130, 57, 4);
     border-right: 2px solid rgb(130, 57, 4);
 }
 
+.table td:last-child {
+    white-space: nowrap;
+}
+
+/* Le righe dispari sono di colore marrone chiaro */
 .table tbody tr:nth-child(odd) td {
     background-color: rgb(222, 137, 76);
 }
 
+/* Le righe pari sono di colore marrone un po' più scuro */
 .table tbody tr:nth-child(even) td {
     background-color: rgb(210, 112, 42);
 }
 
+/* L'intestazione della tabella è di colore marrone scuro */
 .table thead th {
     background-color: rgb(133, 58, 4);
     color: rgb(255, 255, 255);
@@ -107,7 +114,7 @@ table th:not(:last-child)::after{
 }
 
 
-#Quantità {
+#Quantita {
     width: 11%;
 }
 
@@ -133,15 +140,35 @@ width: 8%;
     border-right: none;
 }
 
-#vuoto {
-
-    width: 6%;
+/* Larghezza della colonna in cui sono presenti i pulsanti + e - */
+#aggiungi-elimina {
+    width: 10%;
 }
 
-/* Bottone aggiungi riga */
-#aggiungi-riga {
 
-    height: 25px;
+
+/* Bottoni + e - allineati al centro e con un po' di spazio tra loro */
+#aggiungi-riga, .elimina {
+    height: 30px;
     width: 30px;
-    padding: 10px;
+    padding: 0;
+    margin: 0 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: rgb(0, 95, 154);
+    color: white;
+    border: 2px solid rgb(3, 64, 102);
+    border-radius: 8px;
+    font-size: 18px;
 }
+
+/* Al passaggio sopra con il puntatore del mouse, il pulsante diventa verde*/ 
+#aggiungi-riga:hover {
+    background-color: rgb(40, 150, 40);
+}
+
+/* Al passaggio sopra con il puntatore del mouse, il pulsante diventa rosso*/ 
+.elimina:hover {
+    background-color: rgb(186, 3, 0);
+}
+
